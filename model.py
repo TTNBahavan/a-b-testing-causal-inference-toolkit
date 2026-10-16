@@ -129,3 +129,14 @@ def two_sided_p_value(z):
     z = standard_normal_cdf(z)
     return 2*(1-z)
 
+# Step 7 - unpooled_standard_error
+def unpooled_standard_error(successes_a, total_a, successes_b, total_b):
+    # TODO: return the unpooled SE of the difference between two sample proportions.
+    p_a = successes_a/total_a
+    p_b = successes_b/total_b
+
+    var_a = p_a*(1-p_a)/total_a
+    var_b = p_b*(1-p_b)/total_b
+
+    return math.sqrt(var_a+var_b)
+
