@@ -121,3 +121,11 @@ def two_proportion_z_statistic(p_a, p_b, pooled_se):
     # TODO: return the z-statistic for a two-proportion test using p_b - p_a and pooled_se
     return  (p_b-  p_a) / pooled_se
 
+# Step 6 - two_sided_p_value
+def two_sided_p_value(z):
+    # TODO: convert a z-statistic into a two-sided p-value under the standard normal
+    if z<0:
+        z = -z
+    z = standard_normal_cdf(z)
+    return 2*(1-z)
+
