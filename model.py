@@ -116,3 +116,8 @@ def pooled_standard_error(pooled_p, total_a, total_b):
     # TODO: compute sqrt( p*(1-p) * (1/n_a + 1/n_b) ) using the pooled proportion.
     return math.sqrt( pooled_p*(1-pooled_p) * (1/total_a + 1/total_b) )
 
+# Step 5 - two_proportion_z_statistic
+def two_proportion_z_statistic(p_a, p_b, pooled_se):
+    # TODO: return the z-statistic for a two-proportion test using p_b - p_a and pooled_se
+    return  (p_b-  p_a) / pooled_se
+
