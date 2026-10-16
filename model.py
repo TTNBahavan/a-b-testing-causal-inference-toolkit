@@ -168,3 +168,20 @@ def required_sample_size_per_variant(baseline_rate, minimum_detectable_effect, a
 
     return math.ceil(var_bar)
 
+# Step 10 - statistical_power
+import math
+
+def statistical_power(sample_size_per_variant, baseline_rate, effect_size, alpha):
+    # TODO: return the minimum per-variant sample size for a two-proportion z-test at given alpha and power.
+    p_1 = baseline_rate
+    p_2 = baseline_rate + effect_size
+    p_bar = 0.5*(p_1+ p_2)
+
+    z_alpha = standard_normal_ppf(1-0.5*alpha)
+
+    var_1 = math.sqrt( (p_1*(1-p_1) + p_2*(1-p_2))/sample_size_per_variant )
+    var_0 = math.sqrt( (p_bar*(1-p_bar) + p_bar*(1-p_bar))/sample_size_per_variant )
+
+    argument = (abs(effect_size) - z_alpha*var_0) / var_1
+    return standard_normal_cdf(argument)
+
