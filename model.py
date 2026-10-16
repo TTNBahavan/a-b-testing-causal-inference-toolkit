@@ -140,3 +140,13 @@ def unpooled_standard_error(successes_a, total_a, successes_b, total_b):
 
     return math.sqrt(var_a+var_b)
 
+# Step 8 - confidence_interval_from_se
+def confidence_interval_from_se(point_estimate, standard_error, confidence_level):
+    # TODO: build a two-sided normal-approximation CI (lower, upper) from estimate and SE
+    
+    
+    p = (1+confidence_level)/2
+    z = standard_normal_ppf(p)
+    margin = z * standard_error
+    return point_estimate-margin, point_estimate+margin
+
