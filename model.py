@@ -150,3 +150,21 @@ def confidence_interval_from_se(point_estimate, standard_error, confidence_level
     margin = z * standard_error
     return point_estimate-margin, point_estimate+margin
 
+# Step 9 - required_sample_size_per_variant
+import math
+
+def required_sample_size_per_variant(baseline_rate, minimum_detectable_effect, alpha, power):
+    # TODO: return the minimum per-variant sample size for a two-proportion z-test at given alpha and power.
+    p_1 = baseline_rate
+    p_2 = baseline_rate + minimum_detectable_effect
+    p_bar = 0.5*(p_1+ p_2)
+
+    z_alpha = standard_normal_ppf(1-0.5*alpha)
+    z_beta = standard_normal_ppf(power)
+
+    var_1 = z_beta*math.sqrt( p_1*(1-p_1) + p_2*(1-p_2) )
+    var_2 = z_alpha*math.sqrt( p_bar*(1-p_bar) + p_bar*(1-p_bar) )
+    var_bar = ((var_1+var_2)*(var_1+var_2)) / (minimum_detectable_effect*minimum_detectable_effect)
+
+    return math.ceil(var_bar)
+
