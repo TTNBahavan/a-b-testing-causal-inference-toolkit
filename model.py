@@ -102,3 +102,9 @@ def standard_normal_ppf(p):
         denom = denom * r + 1.0  # Implicit trailing +1 in Acklam's central denominator
         return q * num / denom
 
+# Step 3 - pooled_proportion
+def pooled_proportion(successes_a, total_a, successes_b, total_b):
+    # TODO: Compute the pooled success proportion across two groups for the null of equal rates.
+    
+    return (successes_a + successes_b) / (total_a + total_b)
+

@@ -12,6 +12,7 @@ python scaffold.py
 
 - [x] **1.** standard_normal_cdf
 - [x] **2.** standard_normal_ppf
+- [x] **3.** pooled_proportion
 
 ---
 
