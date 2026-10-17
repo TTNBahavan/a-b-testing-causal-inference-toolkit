@@ -185,3 +185,11 @@ def statistical_power(sample_size_per_variant, baseline_rate, effect_size, alpha
     argument = (abs(effect_size) - z_alpha*var_0) / var_1
     return standard_normal_cdf(argument)
 
+# Step 11 - chi_square_statistic
+def chi_square_statistic(observed_counts, expected_counts):
+    # TODO: return the Pearson chi-square statistic comparing observed to expected counts.
+    obs = np.asarray(observed_counts, dtype=float)
+    exp = np.asarray(expected_counts, dtype=float)
+    diff = obs - exp
+    return float(np.sum(diff * diff / exp))
+
