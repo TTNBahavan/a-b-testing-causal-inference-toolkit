@@ -225,3 +225,45 @@ def bonferroni_correction(p_values, alpha):
     per_test_threshold = alpha / m
     return arr <= per_test_threshold
 
+# Step 14 - benjamini_hochberg_correction
+import numpy as np
+
+def benjamini_hochberg_correction(p_values, alpha):
+    """Return a boolean array marking BH-significant hypotheses at level alpha."""
+    if p_values is None:
+        return np.array([], dtype=bool)
+    
+    arr = np.asarray(p_values, dtype=float)
+    m = arr.size
+    
+    if m == 0:
+        return np.array([], dtype=bool)
+    
+    # 1. Get the indices that sort p-values ascending
+    sort_order = np.argsort(arr)
+    sorted_p = arr[sort_order]
+    
+    # 2. Ranks k = 1, 2, ..., m and BH thresholds = (k / m) * alpha
+    ranks = np.arange(1, m + 1)
+    thresholds = (ranks / m) * alpha
+    
+    # 3. Find positions where p_value <= threshold
+    passing = sorted_p <= thresholds
+    
+    # 4. Find the largest passing rank k*
+    passing_indices = np.where(passing)[0]
+    
+    # 5. Initialize mask for sorted p-values
+    sorted_mask = np.zeros(m, dtype=bool)
+    
+    if passing_indices.size > 0:
+        k_star_idx = np.max(passing_indices)
+        # Reject all sorted hypotheses up to rank k* (0 through k_star_idx)
+        sorted_mask[:k_star_idx + 1] = True
+        
+    # 6. Scatter the boolean mask back to the original order
+    result = np.zeros(m, dtype=bool)
+    result[sort_order] = sorted_mask
+    
+    return result
+
