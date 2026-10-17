@@ -210,3 +210,18 @@ def sample_ratio_mismatch_check(observed_counts, expected_ratios, alpha):
     srm_detected = p_value < alpha
     return {'chi_square':chi , 'p_value':p_value, 'srm_detected':srm_detected}
 
+# Step 13 - bonferroni_correction
+import numpy as np
+
+def bonferroni_correction(p_values, alpha):
+    if p_values is None:
+        return np.array([], dtype=bool)
+    
+    arr = np.asarray(p_values, dtype=float)
+    if arr.size == 0:
+        return np.array([], dtype=bool)
+    
+    m = arr.size
+    per_test_threshold = alpha / m
+    return arr <= per_test_threshold
+
