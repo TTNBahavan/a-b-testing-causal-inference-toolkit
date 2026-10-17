@@ -193,3 +193,20 @@ def chi_square_statistic(observed_counts, expected_counts):
     diff = obs - exp
     return float(np.sum(diff * diff / exp))
 
+# Step 12 - sample_ratio_mismatch_check
+import math
+import numpy as np
+
+def sample_ratio_mismatch_check(observed_counts, expected_ratios, alpha):
+    # TODO: return dict with 'chi_square', 'p_value', 'srm_detected' for the two-group SRM test
+    obs = np.asarray(observed_counts, dtype=float)
+    expected_ratios = np.asarray(expected_ratios, dtype=float)
+    
+    N = np.sum(obs)
+    exp = N*expected_ratios
+
+    chi = chi_square_statistic(obs, exp)
+    p_value = 2*(1-standard_normal_cdf(math.sqrt(chi))) 
+    srm_detected = p_value < alpha
+    return {'chi_square':chi , 'p_value':p_value, 'srm_detected':srm_detected}
+
